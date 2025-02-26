@@ -6,7 +6,7 @@ import "./IAAVE.sol";
 
 contract LotterySystem {
     address public oracleAddress;
-    address public aaveInstance;
+    address public aaveInstanceAddress;
 
     address public usdcTokenAddress;
 
@@ -24,7 +24,7 @@ contract LotterySystem {
 
     constructor(address _oracleAddress, address _aaveInstance, address _usdcTokenAddress) {
         oracleAddress = _oracleAddress;
-        aaveInstance = _aaveInstance;
+        aaveInstanceAddress = _aaveInstance;
         usdcTokenAddress = _usdcTokenAddress;
         drawingTime = block.timestamp + 7 days;
         drawingCompleted = false;
@@ -32,7 +32,7 @@ contract LotterySystem {
 
     function deposit() public {
         require(block.timestamp < drawingTime, "Drawing time has passed");
-        uint amount = 100;
+        uint amount = 100 * 10 ** 6;
         // update deposits for the user
         ERC20 usdcToken = ERC20(usdcTokenAddress); 
         usdcToken.transferFrom(msg.sender, address(this), amount);
